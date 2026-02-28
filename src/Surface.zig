@@ -627,6 +627,10 @@ pub fn init(
         // don't leak GHOSTTY_LOG to any subprocesses
         env.remove("GHOSTTY_LOG");
 
+        // don't leak CLAUDECODE to subprocesses so that Claude Code
+        // doesn't think it's running inside another session
+        env.remove("CLAUDECODE");
+
         // Initialize our IO backend
         var io_exec = try termio.Exec.init(alloc, .{
             .command = command,
